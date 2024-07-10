@@ -13,6 +13,7 @@ import { MessageService } from './config/message.service';
 export class AppComponent implements OnInit {
 
   welcomeMessages: string[] = [];
+  presentationTimes!: string;
 
   constructor(private httpClient:HttpClient, private messageService: MessageService) {}
 
@@ -44,8 +45,9 @@ export class AppComponent implements OnInit {
       this.currentCheckOutVal = x.checkout;
     });
 
-    // Fetch welcome messages on initialization
+
     this.getWelcomeMessages();
+    this.getPresentationTimes();
   }
 
   getWelcomeMessages() {
@@ -56,6 +58,18 @@ export class AppComponent implements OnInit {
       },
       error => {
         console.error('Error fetching welcome messages:', error);
+      }
+    );
+  }
+
+  getPresentationTimes() {
+    this.httpClient.get('/api/presentation-times', { responseType: 'text' }).subscribe(
+      data => {
+        console.log('Presentation times:', data);
+        this.presentationTimes = data;
+      },
+      error => {
+        console.error('Error fetching presentation times:', error);
       }
     );
   }
