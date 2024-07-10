@@ -3,19 +3,18 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {HttpClient, HttpResponse,HttpHeaders} from "@angular/common/http";
 import { Observable } from 'rxjs';
 import {map} from "rxjs/operators";
-
-
-
-
+import { MessageService } from './config/message.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
-  constructor(private httpClient:HttpClient){}
+  welcomeMessages: string[] = [];
+
+  constructor(private httpClient:HttpClient, private messageService: MessageService) {}
 
   private baseURL:string='http://localhost:8080';
 
@@ -28,11 +27,11 @@ export class AppComponent implements OnInit{
   currentCheckInVal!:string;
   currentCheckOutVal!:string;
 
-    ngOnInit(){
-      this.roomsearch= new FormGroup({
-        checkin: new FormControl(' '),
-        checkout: new FormControl(' ')
-      });
+  ngOnInit(){
+    this.roomsearch= new FormGroup({
+      checkin: new FormControl(' '),
+      checkout: new FormControl(' ')
+    });
 
  //     this.rooms=ROOMS;
 
@@ -44,53 +43,68 @@ export class AppComponent implements OnInit{
       this.currentCheckInVal = x.checkin;
       this.currentCheckOutVal = x.checkout;
     });
+
+    // Fetch welcome messages on initialization
+    this.getWelcomeMessages();
   }
 
-    onSubmit({value,valid}:{value:Roomsearch,valid:boolean}){
-      this.getAll().subscribe(
+  getWelcomeMessages() {
+    this.messageService.getWelcomeMessages().subscribe(
+      data => {
+        console.log('Welcome messages:', data);
+        this.welcomeMessages = data;
+      },
+      error => {
+        console.error('Error fetching welcome messages:', error);
+      }
+    );
+  }
 
-        rooms => {console.log(Object.values(rooms)[0]);this.rooms=<Room[]>Object.values(rooms)[0]; }
+  onSubmit({value,valid}:{value:Roomsearch,valid:boolean}){
+    this.getAll().subscribe(
+
+      rooms => {console.log(Object.values(rooms)[0]);this.rooms=<Room[]>Object.values(rooms)[0]; }
 
 
-      );
-    }
-    reserveRoom(value:string){
-      this.request = new ReserveRoomRequest(value, this.currentCheckInVal, this.currentCheckOutVal);
+    );
+  }
+  reserveRoom(value:string){
+    this.request = new ReserveRoomRequest(value, this.currentCheckInVal, this.currentCheckOutVal);
 
-      this.createReservation(this.request);
-    }
-    createReservation(body:ReserveRoomRequest) {
-      let bodyString = JSON.stringify(body); // Stringify payload
-      let headers = new Headers({'Content-Type': 'application/json'}); // ... Set content type to JSON
-     // let options = new RequestOptions({headers: headers}); // Create a request option
+    this.createReservation(this.request);
+  }
+  createReservation(body:ReserveRoomRequest) {
+    let bodyString = JSON.stringify(body); // Stringify payload
+    let headers = new Headers({'Content-Type': 'application/json'}); // ... Set content type to JSON
+    // let options = new RequestOptions({headers: headers}); // Create a request option
 
-     const options = {
+    const options = {
       headers: new HttpHeaders().append('key', 'value'),
 
     }
 
-      this.httpClient.post(this.postUrl, body, options)
-        .subscribe(res => console.log(res));
-    }
+    this.httpClient.post(this.postUrl, body, options)
+      .subscribe(res => console.log(res));
+  }
 
   /*mapRoom(response:HttpResponse<any>): Room[]{
     return response.body;
   }*/
 
-    getAll(): Observable<any> {
+  getAll(): Observable<any> {
 
 
-       return this.httpClient.get(this.baseURL + '/room/reservation/v1?checkin='+ this.currentCheckInVal + '&checkout='+this.currentCheckOutVal, {responseType: 'json'});
-    }
-
+    return this.httpClient.get(this.baseURL + '/room/reservation/v1?checkin='+ this.currentCheckInVal + '&checkout='+this.currentCheckOutVal, {responseType: 'json'});
   }
+
+}
 
 
 
 export interface Roomsearch{
-    checkin:string;
-    checkout:string;
-  }
+  checkin:string;
+  checkout:string;
+}
 
 
 
@@ -138,4 +152,3 @@ var ROOMS: Room[]=[
   "links" : ""
 }
 ] */
-
