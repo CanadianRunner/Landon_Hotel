@@ -1,29 +1,47 @@
-<strong> **DO NOT DISTRIBUTE OR PUBLICLY POST SOLUTIONS TO THESE LABS. MAKE ALL FORKS OF THIS REPOSITORY WITH SOLUTION CODE PRIVATE. PLEASE REFER TO THE STUDENT CODE OF CONDUCT AND ETHICAL EXPECTATIONS FOR COLLEGE OF INFORMATION TECHNOLOGY STUDENTS FOR SPECIFICS. ** </strong>
+# Landon Hotel
 
-# WESTERN GOVERNOR UNIVERSITY 
-## D387 – ADVANCED JAVA
-Welcome to Advanced Java! This is an opportunity for students to write multithreaded object-oriented code using Java frameworks and determine how to deploy software applications using cloud services.
+#### This MVP website was built to provided specifications for my college course D387.
 
-FOR SPECIFIC TASK INSTRUCTIONS AND REQUIREMENTS FOR THIS ASSESSMENT, PLEASE REFER TO THE COURSE PAGE.
-## BASIC INSTRUCTIONS
-For this assessment, you will modify a Spring application with a Java back end and an Angular front end to include multithreaded language translation, a message at different time zones, and currency exchange. Then, build a Docker image of the current multithreaded Spring application and containerize it using the supporting documents provided in this task.
+# _Advanced Java_
 
+#### By _**Sean Keane**_
 
-## SUPPLEMENTAL RESOURCES 
-1.	How to clone a project to IntelliJ using Git?
+#### WGU Code Review 07/11/2024
 
-> Ensure that you have Git installed on your system and that IntelliJ is installed using [Toolbox](https://www.jetbrains.com/toolbox-app/). Make sure that you are using version 2022.3.2. Once this has been confirmed, click the clone button and use the 'IntelliJ IDEA (HTTPS)' button. This will open IntelliJ with a prompt to clone the proejct. Save it in a safe location for the directory and press clone. IntelliJ will prompt you for your credentials. Enter in your WGU Credentials and the project will be cloned onto your local machine.  
+## Description
 
-2. How to create a branch and start Development?
+_I created a Java project for my B.S. in Software Engineering that manages hotel bookings for the Landon Hotel. The user is greeted with a welcome message both in French and English. The messages are accomplished through the use of threads. The customer can select dates they would like to book, which dynamically loads the rooms available, along with their prices in USD, CAD, and EUR. Developing this application helped me grow my understanding of Java, front-end development, and Docker._
 
-- GitLab method
-> Press the '+' button located near your branch name. In the dropdown list, press the 'New branch' button. This will allow you to create a name for your branch. Once the branch has been named, you can select 'Create Branch' to push the branch to your repository.
+### Built Application
 
-- IntelliJ method
-> In IntelliJ, Go to the 'Git' button on the top toolbar. Select the new branch option and create a name for the branch. Make sure checkout branch is selected and press create. You can now add a commit message and push the new branch to the local repo.
+![BuiltApp](Working_Docker_Screenshot.png)
 
-## SUPPORT
-If you need additional support, please navigate to the course page and reach out to your course instructor.
-## FUTURE USE
-Take this opportunity to create or add to a simple resume portfolio to highlight and showcase your work for future use in career search, experience, and education!
+## Technology Used
 
+* Java
+* Spring Framework (Spring Boot, Spring Data JPA, Spring Data REST)
+* HTML
+* CSS
+* Docker
+
+## Setup/Installation Requirements
+
+1) Clone this repository to your desktop.
+2) Navigate to the now installed directory and open in your editor of choice.
+3) Run the project by clicking the play button. This is next to 'D387SampleCodeApplication' in the top right of the IDE.
+4) Navigate to the UI folder in your terminal `cd src/main/UI`
+5) Run `npm install`
+6) Run `ng serve`
+4) Open your browser of choice and navigate to Backend API: http://localhost:8080 and Frontend Application: http://localhost:4200
+
+## Known Bugs
+
+* No known bugs.
+
+## License
+
+If you have any questions or concerns, feel free to contact me at code@sean-keane.com
+
+*This is licensed under the MIT license*
+
+Copyright (c) 07-11-2024 **_Sean Keane_**
